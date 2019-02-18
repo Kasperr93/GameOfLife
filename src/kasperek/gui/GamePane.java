@@ -5,7 +5,7 @@ import java.awt.*;
 
 /**
  * @author Tomasz Kasperek
- * @version 0.1 02/18/2019
+ * @version 0.1.5 02/18/2019
  * @see GameWindow
  * @since 0.1
  */
@@ -24,7 +24,6 @@ public class GamePane extends JPanel {
         initializeNextStepButton();
         initializeAllStepButton();
     }
-
 
     private void initializeNextStepButton() {
         nextStep = new JButton("Next step");
