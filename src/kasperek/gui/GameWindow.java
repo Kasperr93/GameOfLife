@@ -15,7 +15,7 @@ public class GameWindow {
     private GamePane pane;
 
     /**
-     * Default constructor. It is responsibility for setter all needed parameters for window.
+     * Default window constructor. It is responsibility for setter all needed parameters for window.
      */
 
     public GameWindow() {
@@ -27,6 +27,19 @@ public class GameWindow {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setBackground(Color.DARK_GRAY);
         frame.setContentPane(pane);
+
+        windowCenter();
         frame.setVisible(true);
+    }
+
+    /**
+     * The method is responsibility for the auto centering the window.
+     */
+
+    private void windowCenter() {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
     }
 }
