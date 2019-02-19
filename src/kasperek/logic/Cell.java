@@ -13,6 +13,9 @@ public class Cell {
     private boolean isAlive;
     private boolean willBeAlive;
 
+    private final int MARGIN_X = 50;
+    private final int MARGIN_Y = 40;
+
     /**
      * Default constructor with variables implementation.
      */
@@ -66,12 +69,11 @@ public class Cell {
      * The method return, whether the cell will be alive.
      */
 
-    boolean WillBeAlive() {
+    boolean willBeAlive() {
         return willBeAlive;
     }
 
     /**
-     *
      * @param g
      * @param x
      * @param y
@@ -79,11 +81,11 @@ public class Cell {
 
     public void paintCell(Graphics g, int x, int y) {
         if (isAlive) {
-            g.setColor(Color.DARK_GRAY);
-            g.fillOval(x * 20, y * 20, 20, 20);
+            g.setColor(Color.GRAY);
+            g.fillOval(x * 20 + MARGIN_X, y * 20 + MARGIN_Y, 20, 20);
         } else {
             g.setColor(Color.LIGHT_GRAY);
-            g.fillOval(x * 20, y * 20, 20, 20);
+            g.fillOval(x * 20 + MARGIN_X, y * 20 + MARGIN_Y, 20, 20);
         }
     }
 }
