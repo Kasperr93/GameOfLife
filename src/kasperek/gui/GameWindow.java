@@ -1,18 +1,20 @@
 package kasperek.gui;
 
+import kasperek.logic.GameLogic;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * @author Tomasz Kasperek
- * @version 0.1 02/18/2019
+ * @version 0.2 02/18/2019
  * @see GamePane
+ * @see GameLogic
  * @since 0.1
  */
 
 public class GameWindow {
     private JFrame frame;
-    private GamePane pane;
 
     /**
      * Default window constructor. It is responsibility for setter all needed parameters for window.
@@ -20,7 +22,11 @@ public class GameWindow {
 
     public GameWindow() {
         frame = new JFrame("Game of Life");
-        pane = new GamePane();
+        GamePane pane = new GamePane();
+        GameLogic game = new GameLogic(10);
+
+        pane.repaint();
+        pane.setGameLogic(game);
 
         frame.setSize(1200, 800);
         frame.setResizable(false);
