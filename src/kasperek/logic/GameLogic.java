@@ -1,10 +1,11 @@
 package kasperek.logic;
 
+import java.awt.*;
 import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 0.1 02/19/2019
+ * @version 0.3 02/19/2019
  * @see Cell
  * @since 0.1
  */
@@ -12,11 +13,14 @@ import java.util.Random;
 public class GameLogic {
     private Cell[][] board;
 
-    private final int boardWidth = 10;
-    private final int boardHeight = 10;
+    private final int BOARD_WIDTH = 45;
+    private final int BOARD_HEIGHT = 35;
 
-    public GameLogic() {
-        board = new Cell[boardWidth][boardHeight];
+    public GameLogic(int numberOfAliveCells) {
+        board = new Cell[BOARD_WIDTH][BOARD_HEIGHT];
+
+        createCells();
+        createAliveCells(numberOfAliveCells);
     }
 
     private void createCells() {
@@ -29,15 +33,17 @@ public class GameLogic {
 
     private void createAliveCells(int numberOfAliveCells) {
         Random random = new Random();
-        int x = random.nextInt(boardWidth);
-        int y = random.nextInt(boardHeight);
+        int x = random.nextInt(BOARD_WIDTH);
+        int y = random.nextInt(BOARD_HEIGHT);
 
         for (int i = 0; i < numberOfAliveCells; i++) {
             while (board[x][y].willBeAlive()) {
-                x = random.nextInt(boardWidth);
-                y = random.nextInt(boardHeight);
+                x = random.nextInt(BOARD_WIDTH);
+                y = random.nextInt(BOARD_HEIGHT);
             }
         }
+
+        this.updateCells();
     }
 
     private void updateCells() {
@@ -46,5 +52,17 @@ public class GameLogic {
                 cell.update();
             }
         }
+    }
+
+    public void paintBoard(Graphics g) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                board[i][j].paintCell(g, i, j);
+            }
+        }
+    }
+
+    public Cell[][] getBoard() {
+        return board;
     }
 }
