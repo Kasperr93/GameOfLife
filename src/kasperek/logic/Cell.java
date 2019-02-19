@@ -1,11 +1,14 @@
 package kasperek.logic;
 
+import java.awt.*;
+
 /**
  * @author Tomasz Kasperek
- * @version 0.1 02/19/2019
+ * @version 0.2 02/19/2019
  * @see GameLogic
  * @since 0.1
  */
+
 public class Cell {
     private boolean isAlive;
     private boolean willBeAlive;
@@ -65,5 +68,22 @@ public class Cell {
 
     boolean WillBeAlive() {
         return willBeAlive;
+    }
+
+    /**
+     *
+     * @param g
+     * @param x
+     * @param y
+     */
+
+    public void paintCell(Graphics g, int x, int y) {
+        if (isAlive) {
+            g.setColor(Color.DARK_GRAY);
+            g.fillOval(x * 20, y * 20, 20, 20);
+        } else {
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillOval(x * 20, y * 20, 20, 20);
+        }
     }
 }
