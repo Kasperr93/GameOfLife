@@ -3,11 +3,14 @@ package kasperek.gui;
 import kasperek.logic.GameLogic;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * @author Tomasz Kasperek
- * @version 0.4 02/28/2019
+ * @version 0.6 02/28/2019
  * @see GameWindow
  * @see GameLogic
  * @since 0.1
@@ -16,49 +19,146 @@ import java.awt.*;
 public class GamePane extends JPanel {
     private GameLogic game;
 
-    private JButton nextStep;
-    private JButton allSteps;
+    private JButton nextStepButton;
+    private JButton allStepsButton;
+    private JButton startGameButton;
+
+    private JLabel warningText;
+
+    private JFormattedTextField numbersOfNeighboursTextField;
 
     /**
      * Default pane constructor. It is responsibility for setter all needed parameters for window.
      */
 
-    public GamePane() {
+    GamePane() {
+        game = new GameLogic();
+
         this.setLayout(null);
         this.setBackground(Color.DARK_GRAY);
 
+        initializeNumbersOfNeighboursLabel();
+        initializeNumbersOfNeighboursTextField();
+        initializeWarningLabelText();
+        initializeStartGameButton();
+        initializeResetGameButton();
         initializeNextStepButton();
         initializeAllStepButton();
         initializeLegendLabel();
     }
 
-    private void initializeNextStepButton() {
-        nextStep = new JButton("Next step");
-        nextStep.setBounds(980, 32, 100, 40);
+    private void initializeNumbersOfNeighboursLabel() {
+        JLabel numbersOfNeighboursLabel = new JLabel("Numbers of neighbours:");
+        numbersOfNeighboursLabel.setBounds(983, 25, 155, 20);
+        numbersOfNeighboursLabel.setForeground(Color.LIGHT_GRAY);
 
-        nextStep.addActionListener(e -> {
+        this.add(numbersOfNeighboursLabel);
+        numbersOfNeighboursLabel.setVisible(true);
+    }
+
+    private void initializeNumbersOfNeighboursTextField() {
+        NumberFormatter nf = new NumberFormatter();
+        nf.setMinimum(20);
+        nf.setMaximum(1000);
+
+        numbersOfNeighboursTextField = new JFormattedTextField(nf);
+        numbersOfNeighboursTextField.setBounds(980, 42, 200, 30);
+        numbersOfNeighboursTextField.setHorizontalAlignment(JTextField.CENTER);
+        numbersOfNeighboursTextField.setBackground(Color.GRAY);
+        numbersOfNeighboursTextField.setForeground(Color.LIGHT_GRAY);
+
+        numbersOfNeighboursTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char input = e.getKeyChar();
+
+                if (input < '0' || input > '9') {
+                    e.consume();
+                    warningText.setText("You can type only numbers!");
+                    warningText.setVisible(true);
+                } else {
+                    warningText.setVisible(false);
+                }
+            }
+        });
+
+        this.add(numbersOfNeighboursTextField);
+        numbersOfNeighboursTextField.setVisible(true);
+    }
+
+    private void initializeWarningLabelText() {
+        warningText = new JLabel();
+        warningText.setBounds(983, 67, 200, 20);
+        warningText.setForeground(Color.RED);
+
+        this.add(warningText);
+        warningText.setVisible(false);
+    }
+
+    private void initializeStartGameButton() {
+        startGameButton = new JButton("Start game");
+        startGameButton.setBounds(980, 100, 100, 40);
+
+        startGameButton.addActionListener(e -> {
+            game.startGame(Integer.valueOf(numbersOfNeighboursTextField.getText()));
+            startGameButton.setEnabled(false);
+            numbersOfNeighboursTextField.setEditable(false);
+            nextStepButton.setEnabled(true);
+            allStepsButton.setEnabled(true);
+            this.repaint();
+        });
+
+        this.add(startGameButton);
+        startGameButton.setVisible(true);
+    }
+
+    private void initializeResetGameButton() {
+        JButton resetGameButton = new JButton("Reset game");
+        resetGameButton.setBounds(1080, 100, 100, 40);
+
+        resetGameButton.addActionListener(e -> {
+            game = new GameLogic();
+            numbersOfNeighboursTextField.setText("");
+            numbersOfNeighboursTextField.setEditable(true);
+            startGameButton.setEnabled(true);
+            nextStepButton.setEnabled(false);
+            allStepsButton.setEnabled(false);
+            this.repaint();
+        });
+
+        this.add(resetGameButton);
+        resetGameButton.setVisible(true);
+    }
+
+    private void initializeNextStepButton() {
+        nextStepButton = new JButton("Next step");
+        nextStepButton.setBounds(980, 550, 100, 40);
+
+        nextStepButton.addActionListener(e -> {
             game.singleStep();
             this.repaint();
         });
 
-        this.add(nextStep);
-        nextStep.setVisible(true);
+        nextStepButton.setEnabled(false);
+
+        this.add(nextStepButton);
+        nextStepButton.setVisible(true);
     }
 
     private void initializeAllStepButton() {
-        allSteps = new JButton("All steps");
-        allSteps.setBounds(1080, 32, 100, 40);
+        allStepsButton = new JButton("All steps");
+        allStepsButton.setBounds(1080, 550, 100, 40);
 
-        allSteps.addActionListener(e -> {
+        allStepsButton.addActionListener(e -> {
             game.allSteps(this);
             this.repaint();
-            nextStep.setEnabled(false);
+            nextStepButton.setEnabled(false);
         });
 
-        nextStep.setEnabled(true);
+        allStepsButton.setEnabled(false);
 
-        this.add(allSteps);
-        allSteps.setVisible(true);
+        this.add(allStepsButton);
+        allStepsButton.setVisible(true);
     }
 
     private void initializeLegendLabel() {
@@ -81,10 +181,6 @@ public class GamePane extends JPanel {
         legendText.setVisible(true);
         aliveText.setVisible(true);
         notAliveText.setVisible(true);
-    }
-
-    void setGameLogic(GameLogic game) {
-        this.game = game;
     }
 
     @Override
@@ -121,7 +217,6 @@ public class GamePane extends JPanel {
 
         g.drawOval(965, 695, 20, 20);
 
-        System.setProperty("aliveCell", "#228b22");
         g.setColor(Color.getColor("aliveCell"));
         g.fillOval(965, 720, 20, 20);
         g.setColor(Color.GRAY);
