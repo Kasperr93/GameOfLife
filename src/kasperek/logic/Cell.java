@@ -4,11 +4,12 @@ import java.awt.*;
 
 /**
  * @author Tomasz Kasperek
- * @version 0.5 02/27/2019
+ * @version 1.0 02/28/2019
  * @see GameLogic
  * @since 0.1
  */
 
+@SuppressWarnings("WeakerAccess")
 public class Cell {
     private boolean isAlive;
     private boolean willBeAlive;
@@ -17,9 +18,11 @@ public class Cell {
      * Default constructor with variables implementation.
      */
 
-    public Cell() {
+    Cell() {
         isAlive = false;
         willBeAlive = false;
+
+        System.setProperty("aliveCell", "#228b22");
     }
 
     /**
@@ -36,14 +39,6 @@ public class Cell {
 
     void reviveCell() {
         willBeAlive = true;
-    }
-
-    /**
-     * The method change state of cell on the negation.
-     */
-
-    void changeState() {
-        this.isAlive = !this.isAlive;
     }
 
     /**
@@ -78,12 +73,12 @@ public class Cell {
      * @param y position on the y-axis.
      */
 
-    public void paintCell(Graphics g, int x, int y) {
+    void paintCell(Graphics g, int x, int y) {
         int marginX = 50;
         int marginY = 40;
 
         if (isAlive) {
-            g.setColor(Color.GREEN);
+            g.setColor(Color.getColor("aliveCell"));
             g.fillOval(x * 20 + marginX, y * 20 + marginY, 20, 20);
             g.setColor(Color.GRAY);
             g.drawOval(x * 20 + marginX, y * 20 + marginY, 20, 20);
