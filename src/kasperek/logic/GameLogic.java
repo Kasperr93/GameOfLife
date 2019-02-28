@@ -1,11 +1,12 @@
 package kasperek.logic;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 0.3 02/19/2019
+ * @version 0.6 02/28/2019
  * @see Cell
  * @since 0.1
  */
@@ -13,11 +14,15 @@ import java.util.Random;
 public class GameLogic {
     private Cell[][] board;
 
+    private int counter;
+
     private final int BOARD_WIDTH = 45;
     private final int BOARD_HEIGHT = 35;
 
     public GameLogic(int numberOfAliveCells) {
         board = new Cell[BOARD_WIDTH][BOARD_HEIGHT];
+
+        counter = numberOfAliveCells;
 
         createCells();
         createAliveCells(numberOfAliveCells);
@@ -60,6 +65,66 @@ public class GameLogic {
                 board[i][j].paintCell(g, i, j);
             }
         }
+    }
+
+    private int checkNeighbours(int x, int y) {
+        int aliveNeighbours = 0;
+
+        for (int i = x - 1; i <= x + 1; i++) {
+            if (i < 0 || i >= board.length)
+                continue;
+
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (j < 0 || j >= board.length || (i == x && j == y))
+                    continue;
+
+                boolean isAlive = board[i][j].isAlive();
+
+                if (isAlive)
+                    aliveNeighbours++;
+            }
+        }
+
+        return aliveNeighbours;
+    }
+
+    public void singleStep() {
+        int aliveNeighbours;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                aliveNeighbours = checkNeighbours(i, j);
+
+                if (aliveNeighbours < 2 || aliveNeighbours > 3) {
+                    board[i][j].killCell();
+                    counter--;
+                } else {
+                    board[i][j].reviveCell();
+                    counter++;
+                }
+            }
+        }
+
+        this.updateCells();
+    }
+
+    public void allSteps(JPanel panel) {
+        new Thread(() -> {
+
+            while (!isEndGame()) {
+                try {
+                    Thread.sleep(2000);
+                    singleStep();
+                    panel.repaint();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private boolean isEndGame() {
+        return counter == 0;
     }
 
     public Cell[][] getBoard() {
