@@ -6,7 +6,7 @@ import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 0.6 02/28/2019
+ * @version 1.0 02/28/2019
  * @see Cell
  * @since 0.1
  */
@@ -46,6 +46,8 @@ public class GameLogic {
                 x = random.nextInt(BOARD_WIDTH);
                 y = random.nextInt(BOARD_HEIGHT);
             }
+
+            board[x][y].reviveCell();
         }
 
         this.updateCells();
@@ -71,11 +73,11 @@ public class GameLogic {
         int aliveNeighbours = 0;
 
         for (int i = x - 1; i <= x + 1; i++) {
-            if (i < 0 || i >= board.length)
+            if (i < 0 || i >= BOARD_WIDTH)
                 continue;
 
             for (int j = y - 1; j <= y + 1; j++) {
-                if (j < 0 || j >= board.length || (i == x && j == y))
+                if (j < 0 || j >= BOARD_HEIGHT || (i == x && j == y))
                     continue;
 
                 boolean isAlive = board[i][j].isAlive();
