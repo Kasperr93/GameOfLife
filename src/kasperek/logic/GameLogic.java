@@ -6,7 +6,7 @@ import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.0 02/28/2019
+ * @version 1.1 02/28/2019
  * @see Cell
  * @since 0.1
  */
@@ -19,12 +19,14 @@ public class GameLogic {
     private final int BOARD_WIDTH = 45;
     private final int BOARD_HEIGHT = 35;
 
-    public GameLogic(int numberOfAliveCells) {
+    public GameLogic() {
         board = new Cell[BOARD_WIDTH][BOARD_HEIGHT];
 
-        counter = numberOfAliveCells;
-
         createCells();
+    }
+
+    public void startGame(int numberOfAliveCells) {
+        counter = numberOfAliveCells;
         createAliveCells(numberOfAliveCells);
     }
 
