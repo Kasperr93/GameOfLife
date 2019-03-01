@@ -1,12 +1,13 @@
 package kasperek.logic;
 
-import javax.swing.*;
+import kasperek.gui.GamePane;
+
 import java.awt.*;
 import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.1 02/28/2019
+ * @version 1.2 03/01/2019
  * @see Cell
  * @since 0.1
  */
@@ -14,10 +15,15 @@ import java.util.Random;
 public class GameLogic {
     private Cell[][] board;
 
-    private int counter;
+    private int numberOfAliveCells;
+    private int numberOfNotAliveCells;
+    private int numberOfWillBeAlive;
+    private int numberOfWillNotBeAliveCells;
+    private int stepsCounter;
 
-    private final int BOARD_WIDTH = 45;
-    private final int BOARD_HEIGHT = 35;
+    private static final int BOARD_WIDTH = 45;
+    private static final int BOARD_HEIGHT = 35;
+    private static final int BOARD_SIZE = BOARD_WIDTH * BOARD_HEIGHT;
 
     public GameLogic() {
         board = new Cell[BOARD_WIDTH][BOARD_HEIGHT];
@@ -26,8 +32,11 @@ public class GameLogic {
     }
 
     public void startGame(int numberOfAliveCells) {
-        counter = numberOfAliveCells;
+        this.numberOfAliveCells = numberOfAliveCells;
+        stepsCounter = 0;
+        numberOfNotAliveCells = BOARD_SIZE - numberOfAliveCells;
         createAliveCells(numberOfAliveCells);
+        willItBeAlive();
     }
 
     private void createCells() {
@@ -100,25 +109,58 @@ public class GameLogic {
                 aliveNeighbours = checkNeighbours(i, j);
 
                 if (aliveNeighbours < 2 || aliveNeighbours > 3) {
-                    board[i][j].killCell();
-                    counter--;
+                    if (board[i][j].isAlive()) {
+                        board[i][j].killCell();
+                        numberOfAliveCells--;
+                    }
                 } else {
-                    board[i][j].reviveCell();
-                    counter++;
+                    if (!board[i][j].isAlive()) {
+                        board[i][j].reviveCell();
+                        numberOfAliveCells++;
+                    }
                 }
             }
         }
 
         this.updateCells();
+        numberOfNotAliveCells = BOARD_SIZE - numberOfAliveCells;
+        stepsCounter++;
+
+        willItBeAlive();
     }
 
-    public void allSteps(JPanel panel) {
+    void willItBeAlive() {
+        int aliveNeighbours;
+        numberOfWillBeAlive = numberOfAliveCells;
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                aliveNeighbours = checkNeighbours(i, j);
+
+                if (aliveNeighbours < 2 || aliveNeighbours > 3) {
+                    if (board[i][j].isAlive()) {
+                        numberOfWillBeAlive--;
+                    }
+                } else {
+                    if (!board[i][j].isAlive()) {
+                        numberOfWillBeAlive++;
+                    }
+                }
+            }
+        }
+
+        numberOfWillNotBeAliveCells = BOARD_SIZE - numberOfWillBeAlive;
+    }
+
+    public void allSteps(GamePane panel) {
         new Thread(() -> {
 
             while (!isEndGame()) {
                 try {
                     Thread.sleep(2000);
                     singleStep();
+                    panel.updateStatistic(getNumberOfAliveCells(), getNumberOfNotAliveCells(),
+                            getNumberOfWillBeAlive(), getNumberOfWillNotBeAliveCells(), getStepsCounter());
                     panel.repaint();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -128,7 +170,27 @@ public class GameLogic {
     }
 
     private boolean isEndGame() {
-        return counter == 0;
+        return numberOfAliveCells == 0;
+    }
+
+    public int getNumberOfAliveCells() {
+        return numberOfAliveCells;
+    }
+
+    public int getNumberOfNotAliveCells() {
+        return numberOfNotAliveCells;
+    }
+
+    public int getNumberOfWillBeAlive() {
+        return numberOfWillBeAlive;
+    }
+
+    public int getNumberOfWillNotBeAliveCells() {
+        return numberOfWillNotBeAliveCells;
+    }
+
+    public int getStepsCounter() {
+        return stepsCounter;
     }
 
     public Cell[][] getBoard() {
