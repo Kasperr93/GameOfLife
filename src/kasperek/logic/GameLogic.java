@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.2 03/01/2019
+ * @version 1.3 03/06/2019
  * @see Cell
  * @since 0.1
  */
@@ -25,11 +25,19 @@ public class GameLogic {
     private static final int BOARD_HEIGHT = 35;
     private static final int BOARD_SIZE = BOARD_WIDTH * BOARD_HEIGHT;
 
+    /**
+     *
+     */
+
     public GameLogic() {
         board = new Cell[BOARD_WIDTH][BOARD_HEIGHT];
 
         createCells();
     }
+
+    /**
+     * @param numberOfAliveCells
+     */
 
     public void startGame(int numberOfAliveCells) {
         this.numberOfAliveCells = numberOfAliveCells;
@@ -39,6 +47,10 @@ public class GameLogic {
         willItBeAlive();
     }
 
+    /**
+     *
+     */
+
     private void createCells() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -46,6 +58,10 @@ public class GameLogic {
             }
         }
     }
+
+    /**
+     * @param numberOfAliveCells
+     */
 
     private void createAliveCells(int numberOfAliveCells) {
         Random random = new Random();
@@ -64,6 +80,10 @@ public class GameLogic {
         this.updateCells();
     }
 
+    /**
+     *
+     */
+
     private void updateCells() {
         for (Cell[] cells : board) {
             for (Cell cell : cells) {
@@ -72,6 +92,10 @@ public class GameLogic {
         }
     }
 
+    /**
+     * @param g
+     */
+
     public void paintBoard(Graphics g) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -79,6 +103,12 @@ public class GameLogic {
             }
         }
     }
+
+    /**
+     * @param x
+     * @param y
+     * @return
+     */
 
     private int checkNeighbours(int x, int y) {
         int aliveNeighbours = 0;
@@ -100,6 +130,10 @@ public class GameLogic {
 
         return aliveNeighbours;
     }
+
+    /**
+     *
+     */
 
     public void singleStep() {
         int aliveNeighbours;
@@ -129,7 +163,11 @@ public class GameLogic {
         willItBeAlive();
     }
 
-    void willItBeAlive() {
+    /**
+     *
+     */
+
+    private void willItBeAlive() {
         int aliveNeighbours;
         numberOfWillBeAlive = numberOfAliveCells;
 
@@ -152,6 +190,10 @@ public class GameLogic {
         numberOfWillNotBeAliveCells = BOARD_SIZE - numberOfWillBeAlive;
     }
 
+    /**
+     * @param panel
+     */
+
     public void allSteps(GamePane panel) {
         new Thread(() -> {
 
@@ -169,31 +211,153 @@ public class GameLogic {
         }).start();
     }
 
+    /**
+     * @return
+     */
+
     private boolean isEndGame() {
         return numberOfAliveCells == 0;
     }
+
+    /**
+     * @return
+     */
 
     public int getNumberOfAliveCells() {
         return numberOfAliveCells;
     }
 
+    /**
+     * @return
+     */
+
     public int getNumberOfNotAliveCells() {
         return numberOfNotAliveCells;
     }
+
+    /**
+     * @return
+     */
 
     public int getNumberOfWillBeAlive() {
         return numberOfWillBeAlive;
     }
 
+    /**
+     * @return
+     */
+
     public int getNumberOfWillNotBeAliveCells() {
         return numberOfWillNotBeAliveCells;
     }
+
+    /**
+     * @return
+     */
 
     public int getStepsCounter() {
         return stepsCounter;
     }
 
-    public Cell[][] getBoard() {
-        return board;
+    /**
+     * @return
+     */
+
+    public int getBoardXSize() {
+        return board.length;
+    }
+
+    /**
+     * @return
+     */
+
+    public int getBoardYSize() {
+        return board[0].length;
+    }
+
+    /**
+     * @author Tomasz Kasperek
+     * @version 1.0 02/28/2019
+     * @see GameLogic
+     * @since 0.1
+     */
+
+    private class Cell {
+        private boolean isAlive;
+        private boolean willBeAlive;
+
+        /**
+         * Default constructor with variables implementation.
+         */
+
+        private Cell() {
+            isAlive = false;
+            willBeAlive = false;
+
+            System.setProperty("aliveCell", "#228b22");
+        }
+
+        /**
+         * The method sets the cell state from alive to dead.
+         */
+
+        private void killCell() {
+            willBeAlive = false;
+        }
+
+        /**
+         * The method sets the cell state from dead to alive.
+         */
+
+        private void reviveCell() {
+            willBeAlive = true;
+        }
+
+        /**
+         * The method change state of cells for the next round.
+         */
+
+        private void update() {
+            this.isAlive = this.willBeAlive;
+        }
+
+        /**
+         * The method return, whether the cell is alive.
+         */
+
+        private boolean isAlive() {
+            return isAlive;
+        }
+
+        /**
+         * The method return, whether the cell will be alive.
+         */
+
+        private boolean willBeAlive() {
+            return willBeAlive;
+        }
+
+        /**
+         * The method paint cells on the user gui.
+         *
+         * @param g graphics object.
+         * @param x position on the x-axis.
+         * @param y position on the y-axis.
+         */
+
+        private void paintCell(Graphics g, int x, int y) {
+            int marginX = 50;
+            int marginY = 40;
+
+            if (isAlive) {
+                g.setColor(Color.getColor("aliveCell"));
+                g.fillOval(x * 20 + marginX, y * 20 + marginY, 20, 20);
+                g.setColor(Color.GRAY);
+                g.drawOval(x * 20 + marginX, y * 20 + marginY, 20, 20);
+            } else {
+                g.setColor(Color.GRAY);
+                g.drawOval(x * 20 + marginX, y * 20 + marginY, 20, 20);
+            }
+        }
     }
 }
