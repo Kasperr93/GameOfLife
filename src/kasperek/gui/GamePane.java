@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.0 03/01/2019
+ * @version 1.3 03/06/2019
  * @see GameWindow
  * @see GameLogic
  * @since 0.1
@@ -42,9 +42,12 @@ public class GamePane extends JPanel {
         game = new GameLogic();
         this.setLayout(null);
         this.setBackground(Color.DARK_GRAY);
-
         initialization();
     }
+
+    /**
+     *
+     */
 
     private void initialization() {
         // Text field
@@ -75,6 +78,10 @@ public class GamePane extends JPanel {
         initializeNotAliveTextLabel();
     }
 
+    /**
+     *
+     */
+
     private void initializeNumberOfAliveCellsLabel() {
         JLabel numberOfAliveCellsLabel = new JLabel("Number of alive cells:");
         numberOfAliveCellsLabel.setBounds(983, 25, 155, 20);
@@ -83,6 +90,10 @@ public class GamePane extends JPanel {
         this.add(numberOfAliveCellsLabel);
         numberOfAliveCellsLabel.setVisible(true);
     }
+
+    /**
+     *
+     */
 
     private void initializeNumberOfAliveCellsTextField() {
         numberOfAliveCellsTextField = new JFormattedTextField();
@@ -127,14 +138,22 @@ public class GamePane extends JPanel {
         numberOfAliveCellsTextField.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeWarningLabel() {
         warningTextLabel = new JLabel();
-        warningTextLabel.setBounds(983, 67, 200, 20);
+        warningTextLabel.setBounds(983, 67, 220, 20);
         warningTextLabel.setForeground(Color.RED);
 
         this.add(warningTextLabel);
         warningTextLabel.setVisible(false);
     }
+
+    /**
+     *
+     */
 
     private void initializeStartGameButton() {
         startGameButton = new JButton("Start game");
@@ -154,15 +173,26 @@ public class GamePane extends JPanel {
         startGameButton.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeResetGameButton() {
         JButton resetGameButton = new JButton("Reset game");
         resetGameButton.setBounds(1080, 90, 100, 40);
 
-        resetGameButton.addActionListener(e -> setDefaultDataAfterReset());
+        resetGameButton.addActionListener(e -> {
+            game = new GameLogic();
+            setDefaultDataAfterReset();
+        });
 
         this.add(resetGameButton);
         resetGameButton.setVisible(true);
     }
+
+    /**
+     *
+     */
 
     private void initializeStatisticsLabel() {
         JLabel statisticsTitleLabel = new JLabel("Statistics:");
@@ -173,6 +203,10 @@ public class GamePane extends JPanel {
         statisticsTitleLabel.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeAliveCellsCounterLabel() {
         aliveCellsCounterLabel = new JLabel("Alive: -");
         aliveCellsCounterLabel.setBounds(990, 164, 200, 20);
@@ -181,6 +215,10 @@ public class GamePane extends JPanel {
         this.add(aliveCellsCounterLabel);
         aliveCellsCounterLabel.setVisible(true);
     }
+
+    /**
+     *
+     */
 
     private void initializeNotAliveCellsCounterLabel() {
         notAliveCellsCounterLabel = new JLabel("Not alive: -");
@@ -191,6 +229,10 @@ public class GamePane extends JPanel {
         notAliveCellsCounterLabel.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeWillBeAliveCellsCounterLabel() {
         willBeAliveCellsCounterLabel = new JLabel("Will be alive: -");
         willBeAliveCellsCounterLabel.setBounds(970, 224, 200, 20);
@@ -199,6 +241,10 @@ public class GamePane extends JPanel {
         this.add(willBeAliveCellsCounterLabel);
         willBeAliveCellsCounterLabel.setVisible(true);
     }
+
+    /**
+     *
+     */
 
     private void initializeWillNotBeAliveCellsCounterLabel() {
         willNotBeAliveCellsCounterLabel = new JLabel("Won't be alive: -");
@@ -209,6 +255,10 @@ public class GamePane extends JPanel {
         willNotBeAliveCellsCounterLabel.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeStepsCounterLabel() {
         stepsCounterLabel = new JLabel("Steps counter: -");
         stepsCounterLabel.setBounds(970, 284, 200, 20);
@@ -218,6 +268,10 @@ public class GamePane extends JPanel {
         stepsCounterLabel.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeInitialValueOfAliveCellsLabel() {
         initialValueOfAliveCellsLabel = new JLabel("Initial value of alive cells: -");
         initialValueOfAliveCellsLabel.setBounds(970, 344, 200, 20);
@@ -226,6 +280,10 @@ public class GamePane extends JPanel {
         this.add(initialValueOfAliveCellsLabel);
         initialValueOfAliveCellsLabel.setVisible(true);
     }
+
+    /**
+     *
+     */
 
     private void initializeNextStepButton() {
         nextStepButton = new JButton("Next step");
@@ -244,6 +302,10 @@ public class GamePane extends JPanel {
         nextStepButton.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeAllStepButton() {
         allStepsButton = new JButton("All steps");
         allStepsButton.setBounds(1080, 390, 100, 40);
@@ -261,6 +323,10 @@ public class GamePane extends JPanel {
         allStepsButton.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeLegendLabel() {
         JLabel legendText = new JLabel("Legend:");
         legendText.setBounds(965, 670, 80, 20);
@@ -269,6 +335,10 @@ public class GamePane extends JPanel {
         this.add(legendText);
         legendText.setVisible(true);
     }
+
+    /**
+     *
+     */
 
     private void initializeAliveTextLabel() {
         JLabel aliveText = new JLabel("- Alive");
@@ -279,6 +349,10 @@ public class GamePane extends JPanel {
         aliveText.setVisible(true);
     }
 
+    /**
+     *
+     */
+
     private void initializeNotAliveTextLabel() {
         JLabel notAliveText = new JLabel("- Not alive");
         notAliveText.setBounds(990, 719, 70, 20);
@@ -288,13 +362,42 @@ public class GamePane extends JPanel {
         notAliveText.setVisible(true);
     }
 
+    /**
+     * @param aliveCells
+     * @param notAliveCells
+     * @param willBeAliveCells
+     * @param willNotBeAlive
+     * @param steps
+     */
+
     public void updateStatistic(int aliveCells, int notAliveCells, int willBeAliveCells, int willNotBeAlive, int steps) {
         aliveCellsCounterLabel.setText("Alive: " + aliveCells);
         notAliveCellsCounterLabel.setText("Not alive: " + notAliveCells);
         willBeAliveCellsCounterLabel.setText("Will be alive: " + willBeAliveCells);
         willNotBeAliveCellsCounterLabel.setText("Won't be alive: " + willNotBeAlive);
         stepsCounterLabel.setText("Steps counter: " + steps);
+
+        if (aliveCells == 0)
+            initializeEndGamePopUp(steps);
     }
+
+    /**
+     * @param steps
+     */
+
+    private void initializeEndGamePopUp(int steps) {
+        String title = "The game is over";
+        String message = "All cells died after " + steps + " steps. If you want, you can try again with a different number of alive cells. :)";
+
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.PLAIN_MESSAGE);
+
+        nextStepButton.setEnabled(false);
+        allStepsButton.setEnabled(false);
+    }
+
+    /**
+     *
+     */
 
     private void setValuesAfterStart() {
         updateStatistic(game.getNumberOfAliveCells(), game.getNumberOfNotAliveCells(),
@@ -306,23 +409,30 @@ public class GamePane extends JPanel {
         this.repaint();
     }
 
-    private void setDefaultDataAfterReset() {
-        game = new GameLogic();
+    /**
+     *
+     */
 
+    private void setDefaultDataAfterReset() {
         numberOfAliveCellsTextField.setText("");
         aliveCellsCounterLabel.setText("Alive: -");
         notAliveCellsCounterLabel.setText("Not alive: -");
+        willBeAliveCellsCounterLabel.setText("Will be alive: -");
         willNotBeAliveCellsCounterLabel.setText("Won't be alive: -");
         stepsCounterLabel.setText("Steps counter: -");
         initialValueOfAliveCellsLabel.setText("Initial value of alive cells: -");
 
         numberOfAliveCellsTextField.setEditable(true);
-        startGameButton.setEnabled(true);
+        startGameButton.setEnabled(false);
         nextStepButton.setEnabled(false);
         allStepsButton.setEnabled(false);
 
         this.repaint();
     }
+
+    /**
+     * @param validateText
+     */
 
     private void validateDocumentListener(String validateText) {
         int validateNumber;
@@ -335,11 +445,11 @@ public class GamePane extends JPanel {
         }
 
         if (validateNumber < 20) {
-            warningTextLabel.setText("The value mustn't have less than 20");
+            warningTextLabel.setText("Minimum number of cells: 20");
             warningTextLabel.setVisible(true);
             startGameButton.setEnabled(false);
         } else if (validateNumber > 1575) {
-            warningTextLabel.setText("The value mustn't have more than 1575");
+            warningTextLabel.setText("Maximum number of cells: 1575");
             warningTextLabel.setVisible(true);
             startGameButton.setEnabled(false);
         } else {
@@ -349,12 +459,17 @@ public class GamePane extends JPanel {
         }
     }
 
+    /**
+     * @param g
+     */
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        int x = game.getBoard().length;
-        int y = game.getBoard()[0].length;
+
+        int x = game.getBoardXSize();
+        int y = game.getBoardYSize();
         int cellSize = 20;
         int marginX = 50;
         int marginY = 40;
