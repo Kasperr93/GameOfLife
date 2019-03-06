@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.3 03/06/2019
+ * @version 1.4 03/06/2019
  * @see GameWindow
  * @see GameLogic
  * @since 0.1
@@ -46,7 +46,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method is responsibility for calling another methods needed to working the program.
      */
 
     private void initialization() {
@@ -79,7 +79,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label up to the text field.
      */
 
     private void initializeNumberOfAliveCellsLabel() {
@@ -92,7 +92,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the text field, where the user put a number of alive cells.
      */
 
     private void initializeNumberOfAliveCellsTextField() {
@@ -139,7 +139,8 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create a warning label, when the user put a wrong value on the text field.
+     * The warnings show up and hide up, when a value is correct or incorrect.
      */
 
     private void initializeWarningLabel() {
@@ -152,7 +153,8 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the start game button.
+     * After pushing the button, the game will be start.
      */
 
     private void initializeStartGameButton() {
@@ -174,7 +176,8 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the reset game button.
+     * After pushing all values will be restore to the default values.
      */
 
     private void initializeResetGameButton() {
@@ -191,7 +194,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label up to the statistics section.
      */
 
     private void initializeStatisticsLabel() {
@@ -204,7 +207,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label which will count the alive cells.
      */
 
     private void initializeAliveCellsCounterLabel() {
@@ -217,7 +220,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label which will count the not alive cells.
      */
 
     private void initializeNotAliveCellsCounterLabel() {
@@ -230,7 +233,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label which will count the will alive cells.
      */
 
     private void initializeWillBeAliveCellsCounterLabel() {
@@ -243,7 +246,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label which will count the will not alive cells.
      */
 
     private void initializeWillNotBeAliveCellsCounterLabel() {
@@ -256,7 +259,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label with a step counter.
      */
 
     private void initializeStepsCounterLabel() {
@@ -269,7 +272,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label with a initial value of alive cells.
      */
 
     private void initializeInitialValueOfAliveCellsLabel() {
@@ -282,7 +285,8 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the next step button.
+     * After pushing, the program doing one step.
      */
 
     private void initializeNextStepButton() {
@@ -303,7 +307,8 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the all steps button.
+     * After pushing the program doing step by step and ending, when the alive cells are equal 0.
      */
 
     private void initializeAllStepButton() {
@@ -324,7 +329,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label up to the legend section.
      */
 
     private void initializeLegendLabel() {
@@ -337,7 +342,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label next to the alive cell with the explain.
      */
 
     private void initializeAliveTextLabel() {
@@ -350,7 +355,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method create the label next to the not alive cell with the explain.
      */
 
     private void initializeNotAliveTextLabel() {
@@ -363,11 +368,13 @@ public class GamePane extends JPanel {
     }
 
     /**
-     * @param aliveCells
-     * @param notAliveCells
-     * @param willBeAliveCells
-     * @param willNotBeAlive
-     * @param steps
+     * The method updates all statistics. The statistics are updated after each round.
+     *
+     * @param aliveCells       number of alive cells.
+     * @param notAliveCells    number of not alive cells.
+     * @param willBeAliveCells number of cells, which will alive.
+     * @param willNotBeAlive   number of cells, which not will alive.
+     * @param steps            number of steps.
      */
 
     public void updateStatistic(int aliveCells, int notAliveCells, int willBeAliveCells, int willNotBeAlive, int steps) {
@@ -382,7 +389,9 @@ public class GamePane extends JPanel {
     }
 
     /**
-     * @param steps
+     * The method shows a pop up with the results of the game.
+     *
+     * @param steps number of steps.
      */
 
     private void initializeEndGamePopUp(int steps) {
@@ -396,7 +405,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method enabled or disabled some buttons and update the statistics after the start.
      */
 
     private void setValuesAfterStart() {
@@ -410,7 +419,7 @@ public class GamePane extends JPanel {
     }
 
     /**
-     *
+     * The method sets all statistics and buttons to default values.
      */
 
     private void setDefaultDataAfterReset() {
@@ -431,7 +440,9 @@ public class GamePane extends JPanel {
     }
 
     /**
-     * @param validateText
+     * The method validates a number entered by the user. When the value is correct, the program will continue.
+     *
+     * @param validateText a number entered by the user.
      */
 
     private void validateDocumentListener(String validateText) {
@@ -460,7 +471,9 @@ public class GamePane extends JPanel {
     }
 
     /**
-     * @param g
+     * The method paints cells, frames and the board lines.
+     *
+     * @param g graphics object.
      */
 
     @Override
