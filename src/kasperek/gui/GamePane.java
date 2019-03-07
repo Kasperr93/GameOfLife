@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.4 03/06/2019
+ * @version 1.4.1 03/07/2019
  * @see GameWindow
  * @see GameLogic
  * @since 0.1
@@ -384,7 +384,7 @@ public class GamePane extends JPanel {
         willNotBeAliveCellsCounterLabel.setText("Won't be alive: " + willNotBeAlive);
         stepsCounterLabel.setText("Steps counter: " + steps);
 
-        if (aliveCells == 0)
+        if (game.isEndGame())
             initializeEndGamePopUp(steps);
     }
 

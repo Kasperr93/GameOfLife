@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.4 03/07/2019
+ * @version 1.4.1 03/07/2019
  * @see Cell
  * @see GamePane
  * @since 0.1
@@ -229,7 +229,7 @@ public class GameLogic {
      * @return is the game over.
      */
 
-    private boolean isEndGame() {
+    public boolean isEndGame() {
         return numberOfAliveCells == 0;
     }
 
