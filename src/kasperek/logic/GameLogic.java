@@ -7,8 +7,9 @@ import java.util.Random;
 
 /**
  * @author Tomasz Kasperek
- * @version 1.3 03/06/2019
+ * @version 1.4 03/07/2019
  * @see Cell
+ * @see GamePane
  * @since 0.1
  */
 
@@ -26,7 +27,7 @@ public class GameLogic {
     private static final int BOARD_SIZE = BOARD_WIDTH * BOARD_HEIGHT;
 
     /**
-     *
+     * Default game logic constructor. It create a board and cells.
      */
 
     public GameLogic() {
@@ -36,7 +37,9 @@ public class GameLogic {
     }
 
     /**
-     * @param numberOfAliveCells
+     * The method starts the game. It sets number of alive cells, step counter and calls other methods.
+     *
+     * @param numberOfAliveCells the number of cells that will be alive.
      */
 
     public void startGame(int numberOfAliveCells) {
@@ -48,7 +51,7 @@ public class GameLogic {
     }
 
     /**
-     *
+     * The method fills the board the cells objects.
      */
 
     private void createCells() {
@@ -60,7 +63,10 @@ public class GameLogic {
     }
 
     /**
-     * @param numberOfAliveCells
+     * The method create alive cells by the random. When a cell is currently alive, the method will random next object
+     * from the board.
+     *
+     * @param numberOfAliveCells the number of alive cells.
      */
 
     private void createAliveCells(int numberOfAliveCells) {
@@ -81,7 +87,7 @@ public class GameLogic {
     }
 
     /**
-     *
+     * The method updates the condition of the cells.
      */
 
     private void updateCells() {
@@ -93,7 +99,9 @@ public class GameLogic {
     }
 
     /**
-     * @param g
+     * The method paints cells on the board given coordinates.
+     *
+     * @param g graphics object.
      */
 
     public void paintBoard(Graphics g) {
@@ -105,9 +113,11 @@ public class GameLogic {
     }
 
     /**
-     * @param x
-     * @param y
-     * @return
+     * The method checks how many neighbours have a cell.
+     *
+     * @param x coordinates of the first array.
+     * @param y coordinates of the second array.
+     * @return the number of neighbours.
      */
 
     private int checkNeighbours(int x, int y) {
@@ -132,7 +142,7 @@ public class GameLogic {
     }
 
     /**
-     *
+     * The method performs a single step in the game. After the step, it updates some data and calls some methods.
      */
 
     public void singleStep() {
@@ -164,7 +174,7 @@ public class GameLogic {
     }
 
     /**
-     *
+     * The method checks, that a cell will alive (for statistic only).
      */
 
     private void willItBeAlive() {
@@ -191,7 +201,9 @@ public class GameLogic {
     }
 
     /**
-     * @param panel
+     * The method performs the game step by step using the <code>singleStep</code> method.
+     *
+     * @param panel The GamePane object to update statistics and repaint the board.
      */
 
     public void allSteps(GamePane panel) {
@@ -212,7 +224,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method checks, that the game is over. The game is over, when the number of alive cells equals 0.
+     *
+     * @return is the game over.
      */
 
     private boolean isEndGame() {
@@ -220,7 +234,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method returns the number of alive cells.
+     *
+     * @return the number of alive cells.
      */
 
     public int getNumberOfAliveCells() {
@@ -228,7 +244,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method returns the number of not alive cells.
+     *
+     * @return the number of not alive cells.
      */
 
     public int getNumberOfNotAliveCells() {
@@ -236,7 +254,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method returns the number of cells will alive.
+     *
+     * @return the number of cells which will alive.
      */
 
     public int getNumberOfWillBeAlive() {
@@ -244,7 +264,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method returns the number of won't alive cells.
+     *
+     * @return the number of won't alive cells.
      */
 
     public int getNumberOfWillNotBeAliveCells() {
@@ -252,7 +274,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method returns the number of steps performed in the game.
+     *
+     * @return the number of steps performed in the game.
      */
 
     public int getStepsCounter() {
@@ -260,7 +284,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method returns length on the the x-axis.
+     *
+     * @return the length of x-axis.
      */
 
     public int getBoardXSize() {
@@ -268,7 +294,9 @@ public class GameLogic {
     }
 
     /**
-     * @return
+     * The method returns length on the the y-axis.
+     *
+     * @return the length of y-axis.
      */
 
     public int getBoardYSize() {

@@ -370,11 +370,11 @@ public class GamePane extends JPanel {
     /**
      * The method updates all statistics. The statistics are updated after each round.
      *
-     * @param aliveCells       number of alive cells.
-     * @param notAliveCells    number of not alive cells.
-     * @param willBeAliveCells number of cells, which will alive.
-     * @param willNotBeAlive   number of cells, which not will alive.
-     * @param steps            number of steps.
+     * @param aliveCells       the number of alive cells.
+     * @param notAliveCells    the number of not alive cells.
+     * @param willBeAliveCells the number of cells, which will alive.
+     * @param willNotBeAlive   the number of cells, which not will alive.
+     * @param steps            the number of steps.
      */
 
     public void updateStatistic(int aliveCells, int notAliveCells, int willBeAliveCells, int willNotBeAlive, int steps) {
@@ -391,7 +391,7 @@ public class GamePane extends JPanel {
     /**
      * The method shows a pop up with the results of the game.
      *
-     * @param steps number of steps.
+     * @param steps the number of steps.
      */
 
     private void initializeEndGamePopUp(int steps) {
