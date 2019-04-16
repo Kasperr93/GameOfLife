@@ -1,4 +1,4 @@
-package kasperek.test;
+package kasperek.logic.test;
 
 import kasperek.logic.GameLogic;
 

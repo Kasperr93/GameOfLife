@@ -12,8 +12,7 @@ public class Main {
      * @since 0.1
      */
 
-    @SuppressWarnings("unused")
     public static void main(String[] args) {
-        var window = new GameWindow();
+        new GameWindow();
     }
 }
