@@ -1,5 +1,5 @@
 # Game of Life
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6a9cbf0ba8154d75a9b79137924085a6)](https://www.codacy.com/app/Kasperr93/GameOfLife?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Kasperr93/GameOfLife&amp;utm_campaign=Badge_Grade) [![Coverage Status](https://coveralls.io/repos/github/Kasperr93/GameOfLife/badge.svg?branch=master)](https://coveralls.io/github/Kasperr93/GameOfLife?branch=master) ![Language](https://img.shields.io/github/languages/top/Kasperr93/GameOfLife.svg) ![Repo Size](https://img.shields.io/github/repo-size/Kasperr93/GameOfLife.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6a9cbf0ba8154d75a9b79137924085a6)](https://www.codacy.com/app/Kasperr93/GameOfLife?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Kasperr93/GameOfLife&amp;utm_campaign=Badge_Grade) ![Language](https://img.shields.io/github/languages/top/Kasperr93/GameOfLife.svg) ![Repo Size](https://img.shields.io/github/repo-size/Kasperr93/GameOfLife.svg)
 
 The game is a zero-player game. The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970. The program was created using the Java Swing API.
 
